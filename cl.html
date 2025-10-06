@@ -1,0 +1,689 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BadmintonPro - Chuyên Vợt Cầu Lông Chính Hãng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .cart-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Products Section */
+        .products {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .products h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: all 0.6s ease;
+            transform: rotate(-45deg) translate(-100%, -100%);
+        }
+
+        .product-card:hover::before {
+            transform: rotate(-45deg) translate(0, 0);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .product-info {
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-brand {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features li {
+            padding: 0.3rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .buy-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .buy-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .buy-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Cart Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">🏸 BadmintonPro</div>
+            <ul class="nav-links">
+                <li><a href="#home">Trang chủ</a></li>
+                <li><a href="#products">Sản phẩm</a></li>
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+            <a href="#" class="cart-icon" id="cartIcon">🛒 Giỏ hàng (<span id="cartCount">0</span>)</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero" id="home">
+            <h1>Vợt Cầu Lông Chính Hãng</h1>
+            <p>Khám phá bộ sưu tập vợt cầu lông cao cấp từ các thương hiệu hàng đầu thế giới. Chất lượng đảm bảo, giá cả hợp lý!</p>
+            <a href="#products" class="cta-button">Khám phá ngay</a>
+        </section>
+
+        <section class="products" id="products">
+            <h2>Sản phẩm nổi bật</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">🏸</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Yonex Arcsaber 11</h3>
+                        <p class="product-brand">Thương hiệu: Yonex</p>
+                        <p class="product-price">4,500,000₫</p>
+                        <ul class="product-features">
+                            <li>Trọng lượng: 83-88g</li>
+                            <li>Độ cứng: Medium</li>
+                            <li>Chất liệu: Carbon Graphite</li>
+                            <li>Công nghệ Sonic Metal</li>
+                        </ul>
+                        <button class="buy-button" onclick="addToCart('Yonex Arcsaber 11', 4500000)">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🏸</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Victor Thruster K9900</h3>
+                        <p class="product-brand">Thương hiệu: Victor</p>
+                        <p class="product-price">3,800,000₫</p>
+                        <ul class="product-features">
+                            <li>Trọng lượng: 82-87g</li>
+                            <li>Độ cứng: Stiff</li>
+                            <li>Chất liệu: Ultra High Modulus Graphite</li>
+                            <li>Công nghệ PYROFIL</li>
+                        </ul>
+                        <button class="buy-button" onclick="addToCart('Victor Thruster K9900', 3800000)">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🏸</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Li-Ning Axforce 100</h3>
+                        <p class="product-brand">Thương hiệu: Li-Ning</p>
+                        <p class="product-price">2,900,000₫</p>
+                        <ul class="product-features">
+                            <li>Trọng lượng: 85-89g</li>
+                            <li>Độ cứng: Medium Flex</li>
+                            <li>Chất liệu: Carbon Fiber</li>
+                            <li>Công nghệ TB-NANO</li>
+                        </ul>
+                        <button class="buy-button" onclick="addToCart('Li-Ning Axforce 100', 2900000)">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🏸</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mizuno Fortius Tour-F</h3>
+                        <p class="product-brand">Thương hiệu: Mizuno</p>
+                        <p class="product-price">3,200,000₫</p>
+                        <ul class="product-features">
+                            <li>Trọng lượng: 83-88g</li>
+                            <li>Độ cứng: Medium Stiff</li>
+                            <li>Chất liệu: High Modulus Graphite</li>
+                            <li>Công nghệ Hot Melt Tech</li>
+                        </ul>
+                        <button class="buy-button" onclick="addToCart('Mizuno Fortius Tour-F', 3200000)">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🏸</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Yonex Voltric Z-Force II</h3>
+                        <p class="product-brand">Thương hiệu: Yonex</p>
+                        <p class="product-price">4,800,000₫</p>
+                        <ul class="product-features">
+                            <li>Trọng lượng: 83-88g</li>
+                            <li>Độ cứng: Extra Stiff</li>
+                            <li>Chất liệu: M40X & M30</li>
+                            <li>Công nghệ Tri-Voltage System</li>
+                        </ul>
+                        <button class="buy-button" onclick="addToCart('Yonex Voltric Z-Force II', 4800000)">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🏸</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Victor Jetspeed S12</h3>
+                        <p class="product-brand">Thương hiệu: Victor</p>
+                        <p class="product-price">2,600,000₫</p>
+                        <ul class="product-features">
+                            <li>Trọng lượng: 79-84g</li>
+                            <li>Độ cứng: Medium</li>
+                            <li>Chất liệu: High Resilient Modulus Graphite</li>
+                            <li>Công nghệ SWORD</li>
+                        </ul>
+                        <button class="buy-button" onclick="addToCart('Victor Jetspeed S12', 2600000)">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 BadmintonPro. Tất cả quyền được bảo lưu. | Hotline: 0123-456-789 | Email: info@badmintonpro.vn</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCart()">&times;</span>
+            <h2>Giỏ hàng của bạn</h2>
+            <div id="cartItems"></div>
+            <div id="cartTotal"></div>
+            <button class="buy-button" onclick="checkout()" style="margin-top: 1rem;">Thanh toán</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let cartCount = 0;
+
+        function addToCart(productName, price) {
+            cart.push({ name: productName, price: price });
+            cartCount++;
+            document.getElementById('cartCount').textContent = cartCount;
+            
+            // Animation effect
+            const cartIcon = document.getElementById('cartIcon');
+            cartIcon.style.transform = 'scale(1.2)';
+            cartIcon.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+            
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+                cartIcon.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+            }, 300);
+            
+            // Show success message
+            showNotification(`Đã thêm ${productName} vào giỏ hàng!`);
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 120px;
+                right: 20px;
+                background: linear-gradient(135deg, #28a745, #20c997);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+                z-index: 3000;
+                font-weight: bold;
+                animation: slideInRight 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease forwards';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        function openCart() {
+            const modal = document.getElementById('cartModal');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Giỏ hàng của bạn đang trống</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid #eee;';
+                    itemDiv.innerHTML = `
+                        <span>${item.name}</span>
+                        <div>
+                            <span style="color: #667eea; font-weight: bold;">${item.price.toLocaleString()}₫</span>
+                            <button onclick="removeFromCart(${index})" style="margin-left: 1rem; background: #dc3545; color: white; border: none; padding: 0.2rem 0.5rem; border-radius: 5px; cursor: pointer;">Xóa</button>
+                        </div>
+                    `;
+                    cartItems.appendChild(itemDiv);
+                    total += item.price;
+                });
+            }
+            
+            cartTotal.innerHTML = `<h3 style="margin-top: 1rem; color: #667eea;">Tổng cộng: ${total.toLocaleString()}₫</h3>`;
+            modal.style.display = 'block';
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            cartCount--;
+            document.getElementById('cartCount').textContent = cartCount;
+            openCart(); // Refresh cart display
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Giỏ hàng của bạn đang trống!');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            alert(`Cảm ơn bạn đã mua hàng!\nTổng tiền: ${total.toLocaleString()}₫\nChúng tôi sẽ liên hệ với bạn sớm nhất!`);
+            
+            // Reset cart
+            cart = [];
+            cartCount = 0;
+            document.getElementById('cartCount').textContent = cartCount;
+            closeCart();
+        }
+
+        // Event listeners
+        document.getElementById('cartIcon').addEventListener('click', function(e) {
+            e.preventDefault();
+            openCart();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.2)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(300px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(300px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
